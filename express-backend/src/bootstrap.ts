@@ -6,6 +6,6 @@ export default async function bootstrap() {
 	IndexCFG.express = express;
 	const app = express();
 	IndexCFG.app = app;
-	console.log("#Bootstrap App");
+	if (IndexCFG.debug) console.log("#Bootstrap App");
 	return app;
-};
+}

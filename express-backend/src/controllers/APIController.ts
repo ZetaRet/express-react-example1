@@ -18,7 +18,7 @@ export default class APIController extends BaseController {
 		var uid: string = req.body.uid as string,
 			password: string = req.body.password as string;
 		var password_btoa = btoa(password);
-		console.log("#login:", uid, password, password_btoa);
+		if (o.debug) console.log("#login:", uid, password, password_btoa);
 
 		IndexCFG.mongodb
 			.collection("agents")

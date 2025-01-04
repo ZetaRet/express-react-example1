@@ -58,5 +58,5 @@ npm install
 npm run build
 ````
 
-After successful install and build `cd express-backend/` type in terminal `npm run start`.  
+After successful install and build `cd express-backend/` type in terminal `npm run start` or from main folder `npm run start`.  
 

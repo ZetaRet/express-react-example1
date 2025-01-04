@@ -7,5 +7,5 @@ export default async function modules_setup() {
 	for (let i = 1; i < modules.length; i++) {
 		res = await modules[i](app);
 	}
-	console.log("#Modules Setup");
+	if (IndexCFG.debug) console.log("#Modules Setup");
 }

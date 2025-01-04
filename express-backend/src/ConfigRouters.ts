@@ -9,12 +9,12 @@ export default class ConfigRouters {
 	public debug: boolean = true;
 
 	constructor() {
-		console.log("#ConfigRouters");
+		if (this.debug) console.log("#ConfigRouters");
 		this.middleware = this.middleware.bind(this);
 	}
 
 	async middleware(req: Request, res: Response, next: any) {
-		console.log("#general middleware:", req.originalUrl);
+		if (this.debug) console.log("#general middleware:", req.originalUrl);
 		if (!IndexCFG.redis || !IndexCFG.mongodb) {
 			if (this.debug) console.log("_not connected");
 			res.send({ err: "notConnected" });
