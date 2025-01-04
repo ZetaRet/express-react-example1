@@ -1,0 +1,32 @@
+{
+  "name": "express-react-example1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --watch",
+    "watch-prod": "webpack --mode production --watch",
+    "watch-dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "start-react": "webpack --mode development",
+    "serve": "webpack serve --mode production --open",
+    "serve-dev": "webpack serve --mode development --open",
+    "start": "NODE_ENV=rootprod node express-backend/dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^6.28.0",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "babel-loader": "^9.2.1",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  }
+}

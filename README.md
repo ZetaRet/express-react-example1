@@ -1,6 +1,6 @@
 ## Setup
 
-Check the `setup.md` of [nest-react-factory-example1](https://github.com/ZetaRet/nest-react-factory-example1/) and proceed with the current `setup.md` for each new installation.  
+Check the `setup` of [nest-react-factory-example1](https://github.com/ZetaRet/nest-react-factory-example1/) and proceed with the current `setup.md` for each new installation.  
 
 ## Technology
 
