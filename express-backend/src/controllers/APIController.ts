@@ -3,6 +3,7 @@ import IndexCFG from "../IndexCFG";
 import BaseController from "./BaseController";
 import { ObjectID } from "bson";
 import APIDataService from "../services/APIDataService";
+import { LoginZod } from "../schemas/ZodSchemas";
 
 export default class APIController extends BaseController {
 	public service: APIDataService;
@@ -16,9 +17,15 @@ export default class APIController extends BaseController {
 
 	async login(req: Request, res: Response) {
 		const o = this;
-		let sdata: any = await IndexCFG.getCookieData(req, res);
 		var uid: string = req.body.uid as string,
 			password: string = req.body.password as string;
+		const zodsafe: any = LoginZod.safeParse({ uid, password });
+		if (!zodsafe.success) {
+			res.send(o.returnError("validation", zodsafe.error.issues));
+			return;
+		}
+
+		let sdata: any = await IndexCFG.getCookieData(req, res);
 		var password_btoa = btoa(password);
 		if (IndexCFG.debug) console.log("#login:", uid, password, password_btoa);
 

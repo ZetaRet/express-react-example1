@@ -6,6 +6,10 @@ export default class BaseController {
 
 	constructor() {}
 
+	protected returnError(err: string, data?: any): any {
+		return { err, data };
+	}
+
 	configRouter(router: Router) {
 		const o: any = this;
 		o.links.forEach((e: string) => {
