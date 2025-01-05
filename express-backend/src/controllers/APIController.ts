@@ -4,8 +4,6 @@ import BaseController from "./BaseController";
 import { ObjectID } from "bson";
 
 export default class APIController extends BaseController {
-	public debug: boolean = true;
-
 	constructor() {
 		super();
 		this.links = ["login", "logout", "status"];
@@ -18,12 +16,12 @@ export default class APIController extends BaseController {
 		var uid: string = req.body.uid as string,
 			password: string = req.body.password as string;
 		var password_btoa = btoa(password);
-		if (o.debug) console.log("#login:", uid, password, password_btoa);
+		if (IndexCFG.debug) console.log("#login:", uid, password, password_btoa);
 
 		IndexCFG.mongodb
 			.collection("agents")
 			.findOne({ _id: new ObjectID(uid), password: password_btoa }, async (err: any, result: any) => {
-				if (o.debug) console.log("#Login:", result);
+				if (IndexCFG.debug) console.log("#Login:", result);
 				await IndexCFG.redis.set((req as any).cookie.session, uid);
 				(req as any).redisval = uid;
 				res.send({ cookie: sdata, db: result });
@@ -34,11 +32,11 @@ export default class APIController extends BaseController {
 		const o = this;
 		var params = req.params;
 		params.password_btoa = btoa(params.password);
-		if (o.debug) console.log(params);
+		if (IndexCFG.debug) console.log(params);
 		IndexCFG.mongodb
 			.collection("agents")
 			.findOne({ uid: params.uid, password: params.password_btoa }, (err: any, result: any) => {
-				if (o.debug) console.log(result);
+				if (IndexCFG.debug) console.log(result);
 				res.send(result);
 			});
 	}

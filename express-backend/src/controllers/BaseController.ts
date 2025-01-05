@@ -17,4 +17,12 @@ export default class BaseController {
 	__default(req: Request, res: Response) {
 		res.send("");
 	}
+
+	async findMany(result: any) {
+		var findmany: any[] = [];
+		for await (var doc of result) {
+			findmany.push(doc);
+		}
+		return findmany;
+	}
 }

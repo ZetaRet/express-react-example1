@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 import IndexCFG from "../IndexCFG";
 import { ConfigENUM } from "./config";
 
-console.log(mongoose);
-
 export default async function mongodb(app: any) {
 	var mongoname = ConfigENUM.enum.mongoname;
 	if (IndexCFG.debug) console.log("#Connect to MongoClient");

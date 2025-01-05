@@ -15,10 +15,7 @@ export default class HomeController extends BaseController {
 
 	agents(req: Request, res: Response) {
 		IndexCFG.mongodb.collection("agents").find({}, async (err: any, result: any) => {
-			var findmany: any[] = [];
-			for await (var doc of result) {
-				findmany.push(doc);
-			}
+			var findmany: any[] = await this.findMany(result);
 			if (IndexCFG.debug) console.log(findmany);
 			res.send(findmany);
 		});
