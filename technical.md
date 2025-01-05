@@ -1,6 +1,6 @@
 ## Collections  
 
-units - id, password, role, name, type, race, body_type, body_size, color1, color2  
+agents - id, password, role, name, type, race, body_type, body_size, color1, color2  
 units_origin - id, unit_id, name, type, race, body_type, body_size, color1, color2  
 unit_data - id, unit_id, key, value  
 unit_data_origin - id, unit_id, key, value  

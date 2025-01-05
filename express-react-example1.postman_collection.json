@@ -74,7 +74,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"677a7d9ca2bc38371c7e371b\",\n    \"password\": \"password_0\"\n}",
+					"raw": "{\n    \"uid\": \"{{uid}}\",\n    \"password\": \"password_0\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -151,6 +151,11 @@
 		{
 			"key": "expreUrl",
 			"value": "http://localhost:4300",
+			"type": "default"
+		},
+		{
+			"key": "uid",
+			"value": "677a881dfe9c502c2e8d436a",
 			"type": "default"
 		}
 	]
