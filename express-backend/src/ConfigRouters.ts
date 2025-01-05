@@ -65,6 +65,7 @@ export default class ConfigRouters {
 		app.get("/favicon.ico", o.renderEmpty);
 		app.get("/login/", o.renderIndex);
 		app.get("/profile/", o.renderIndex);
+		app.get("/edit_profile/", o.renderIndex);
 		this.addController(HomeController, app, "home");
 		this.addController(APIController, app, "api");
 	}

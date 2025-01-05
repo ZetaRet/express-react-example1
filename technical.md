@@ -9,7 +9,7 @@ tokens - id, unit_id, token
 
 ## Redis  
 
-cookie.COOKIE_RANDOM_80: unit_id  
+cookie.COOKIE_RANDOM_36: unit_id  
 
 ## Enumerations
 

@@ -5,13 +5,14 @@ export default class IndexCFG {
 
 	public static sessionId: string = "session";
 	public static sessionData: any = {};
-	public static isLogin: boolean = false;
+
 	public static publicRoutes: string[] = [];
 
 	public static mongodb: any;
 	public static mongocollection: any;
 
 	public static redis: any;
+	public static cookieLength: number = 36;
 
 	public static app: any = null;
 	public static express: any = null;
@@ -48,7 +49,7 @@ export default class IndexCFG {
 	}
 
 	public static async setCookie(req: Request, res: Response) {
-		let sid = IndexCFG.rnd(16);
+		let sid = IndexCFG.rnd(IndexCFG.cookieLength);
 		await this.setSessionData(sid, req, res);
 		return sid;
 	}
