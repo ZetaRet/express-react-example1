@@ -46,6 +46,7 @@ export default class ConfigRouters {
 		IndexCFG.publicRoutes.push("/api/home/");
 		IndexCFG.publicRoutes.push("/api/login/");
 		IndexCFG.publicRoutes.push("/api/status/");
+		IndexCFG.publicRoutes.push("/api/seedAgents/");
 	}
 
 	renderEmpty(req: Request, res: Response) {

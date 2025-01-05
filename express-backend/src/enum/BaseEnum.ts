@@ -1,10 +1,10 @@
-export const enum BodyTypeEnum {
+export enum BodyTypeEnum {
 	male = "male",
 	female = "female",
 	robot = "robot",
 }
 
-export const enum BodySizeEnum {
+export enum BodySizeEnum {
 	small = "small",
 	medium = "medium",
 	large = "large",
@@ -12,7 +12,7 @@ export const enum BodySizeEnum {
 	massive = "massive",
 }
 
-export const NameArray = [
+export const NameArray: string[] = [
 	"Chris",
 	"Sonic",
 	"Blade",
@@ -27,12 +27,12 @@ export const NameArray = [
 	"Heaven",
 ];
 
-export const enum TypeEnum {
+export enum TypeEnum {
 	shapeshifter = "shapeshifter",
 	alien = "alien",
 }
 
-export const enum RaceEnum {
+export enum RaceEnum {
 	human = "human",
 	reptile = "reptile",
 	dominion = "dominion",

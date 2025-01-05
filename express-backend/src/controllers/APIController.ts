@@ -2,11 +2,15 @@ import { Request, Response } from "express";
 import IndexCFG from "../IndexCFG";
 import BaseController from "./BaseController";
 import { ObjectID } from "bson";
+import APIDataService from "../services/APIDataService";
 
 export default class APIController extends BaseController {
+	public service: APIDataService;
+
 	constructor() {
 		super();
-		this.links = ["login", "logout", "status"];
+		this.service = new APIDataService();
+		this.links = ["login", "logout", "status", "seedAgents"];
 		this.post["login"] = true;
 	}
 
@@ -42,10 +46,10 @@ export default class APIController extends BaseController {
 	}
 
 	status(req: Request, res: Response) {
-		const o = this;
-		let result: any = {};
-		result.cookie = (req as any).cookie.session;
-		result.uid = (req as any).redisval;
-		res.send(result);
+		return this.service.status(req, res);
+	}
+
+	seedAgents(req: Request, res: Response) {
+		return this.service.seedAgents(req, res);
 	}
 }

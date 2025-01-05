@@ -27,6 +27,14 @@ export default class IndexCFG {
 		return str;
 	}
 
+	public static getRndArray(arr: any[]): any {
+		return arr[Math.round(Math.random() * (arr.length - 1))];
+	}
+
+	public static getRndMinMax(min: number, max: number): number {
+		return min + Math.round((max - min) * Math.random());
+	}
+
 	public static checkPublicRoute(route: string) {
 		if (route.charAt(route.length - 1) !== "/") route += "/";
 		var proute: boolean = IndexCFG.publicRoutes.indexOf(route) >= 0;

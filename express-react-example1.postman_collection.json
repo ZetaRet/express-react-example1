@@ -74,7 +74,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": \"6777e54aee991e2b882aeb6a\",\n    \"password\": \"kkkl\"\n}",
+					"raw": "{\n    \"uid\": \"677a7d9ca2bc38371c7e371b\",\n    \"password\": \"password_0\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,6 +89,37 @@
 					"path": [
 						"api",
 						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seed Agents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{expreUrl}}/api/seedAgents/",
+					"host": [
+						"{{expreUrl}}"
+					],
+					"path": [
+						"api",
+						"seedAgents",
 						""
 					]
 				}
