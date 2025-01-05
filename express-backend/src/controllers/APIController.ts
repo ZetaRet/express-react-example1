@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import IndexCFG from "../IndexCFG";
 import BaseController from "./BaseController";
-import { ObjectID } from "bson";
 import APIDataService from "../services/APIDataService";
 import { LoginZod } from "../schemas/ZodSchemas";
+import { ObjectId } from "mongodb";
 
 export default class APIController extends BaseController {
 	public service: APIDataService;
@@ -31,7 +31,7 @@ export default class APIController extends BaseController {
 
 		IndexCFG.mongodb
 			.collection("agents")
-			.findOne({ _id: new ObjectID(uid), password: password_btoa }, async (err: any, result: any) => {
+			.findOne({ _id: new ObjectId(uid), password: password_btoa }, async (err: any, result: any) => {
 				if (IndexCFG.debug) console.log("#Login:", result);
 				await IndexCFG.redis.set((req as any).cookie.session, uid);
 				(req as any).redisval = uid;

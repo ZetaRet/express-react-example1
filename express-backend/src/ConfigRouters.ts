@@ -5,6 +5,8 @@ import IndexCFG from "./IndexCFG";
 import APIController from "./controllers/APIController";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { IRequest } from "./interfaces/IRequest";
+import { ObjectId } from "mongodb";
 
 export default class ConfigRouters {
 	public routers: any = {};
@@ -22,13 +24,27 @@ export default class ConfigRouters {
 		} else {
 			var proute: boolean = IndexCFG.checkPublicRoute((req as any)._parsedUrl.pathname);
 			await IndexCFG.checkCookie(req, res);
-			let cookieid: string = (req as any).cookie.session;
+			let cookieid: string = (req as IRequest).cookie.session;
 			var islogin: any = cookieid ? await IndexCFG.redis.get(cookieid) : null;
+			var haslogin = islogin && islogin != "guest";
 			if (IndexCFG.debug) console.log(proute, islogin, IndexCFG.sessionData, (req as any).cookie);
-			if ((islogin && islogin != "guest") || proute) {
-				next();
+			if (haslogin || proute) {
+				if (haslogin && !proute) {
+					this.checkUser(islogin, (uid: string, result: any) => {
+						if (result) next();
+						else res.send({ err: "wrongSession" });
+					});
+				} else next();
 			} else res.send({ err: "requireLogin" });
 		}
+	}
+
+	checkUser(uid: string, callback: Function) {
+		console.log("@check user", uid);
+		IndexCFG.mongodb.collection("agents").findOne({ _id: new ObjectId(uid) }, (err: any, result: any) => {
+			if (IndexCFG.debug) console.log("#Check User:", result);
+			callback(uid, result);
+		});
 	}
 
 	addController(ctrl: any, app: any, id: string) {

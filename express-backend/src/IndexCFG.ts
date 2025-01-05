@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { IRequest } from "./interfaces/IRequest";
 
 export default class IndexCFG {
 	public static debug: boolean = true;
@@ -64,15 +65,15 @@ export default class IndexCFG {
 
 	public static async setSessionData(sid: string, req: Request, res: Response) {
 		res.cookie(IndexCFG.sessionId, sid);
-		(res as any)[IndexCFG.sessionId] = sid;
-		(req as any).cookie[IndexCFG.sessionId] = sid;
+		(res as IRequest).session = sid;
+		(req as IRequest).cookie[IndexCFG.sessionId] = sid;
 		let cdata: any = {};
 		cdata[IndexCFG.sessionId] = sid;
 		IndexCFG.sessionData[sid] = cdata;
-		(req as any).redisval = await IndexCFG.redis.get(sid);
-		if (!(req as any).redisval) {
+		(req as IRequest).redisval = await IndexCFG.redis.get(sid);
+		if (!(req as IRequest).redisval) {
 			await IndexCFG.redis.set(sid, "guest");
-			(req as any).redisval = "guest";
+			(req as IRequest).redisval = "guest";
 		}
 	}
 
