@@ -4,6 +4,7 @@ import BaseController from "./BaseController";
 import APIDataService from "../services/APIDataService";
 import { LoginZod } from "../schemas/ZodSchemas";
 import { ObjectId } from "mongodb";
+import { IRequest } from "../interfaces/IRequest";
 
 export default class APIController extends BaseController {
 	public service: APIDataService;
@@ -41,15 +42,14 @@ export default class APIController extends BaseController {
 
 	logout(req: Request, res: Response) {
 		const o = this;
-		var params = req.params;
-		params.password_btoa = btoa(params.password);
-		if (IndexCFG.debug) console.log(params);
-		IndexCFG.mongodb
-			.collection("agents")
-			.findOne({ uid: params.uid, password: params.password_btoa }, (err: any, result: any) => {
-				if (IndexCFG.debug) console.log(result);
-				res.send(result);
-			});
+		let session = (req as IRequest).cookie.session;
+		let uid = (req as IRequest).redisval;
+		let user = (req as IRequest).user;
+		if (IndexCFG.debug) console.log("#Logout", session, uid, user);
+		IndexCFG.redis.set(session, "guest");
+		(req as IRequest).redisval = "guest";
+		(req as IRequest).user = null;
+		res.send({ session });
 	}
 
 	status(req: Request, res: Response) {

@@ -4,14 +4,16 @@ import { ObjectId } from "mongodb";
 import { RoleEnum } from "../enum/RoleEnum";
 import { BodySizeEnum, BodyTypeEnum, ColorLimit, NameArray, RaceEnum, TypeEnum } from "../enum/BaseEnum";
 import { OtherData } from "../enum/OtherEnum";
+import { IRequest } from "../interfaces/IRequest";
 
 export default class APIDataService {
 	constructor() {}
 
 	status(req: Request, res: Response) {
 		let result: any = {};
-		result.cookie = (req as any).cookie.session;
-		result.uid = (req as any).redisval;
+		result.cookie = (req as IRequest).cookie.session;
+		result.uid = (req as IRequest).redisval;
+		result.user = (req as IRequest).user;
 		res.send(result);
 	}
 

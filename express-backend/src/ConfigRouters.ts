@@ -29,9 +29,11 @@ export default class ConfigRouters {
 			var haslogin = islogin && islogin != "guest";
 			if (IndexCFG.debug) console.log(proute, islogin, IndexCFG.sessionData, (req as any).cookie);
 			if (haslogin || proute) {
-				if (haslogin && !proute) {
+				if (haslogin) {
 					this.checkUser(islogin, (uid: string, result: any) => {
-						if (result) next();
+						if (result) (req as IRequest).user = result;
+						if (proute) next();
+						else if (result) next();
 						else res.send({ err: "wrongSession" });
 					});
 				} else next();

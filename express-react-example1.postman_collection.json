@@ -96,6 +96,37 @@
 			"response": []
 		},
 		{
+			"name": "Logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{expreUrl}}/api/logout/",
+					"host": [
+						"{{expreUrl}}"
+					],
+					"path": [
+						"api",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Seed Agents",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -155,7 +186,7 @@
 		},
 		{
 			"key": "uid",
-			"value": "677a881dfe9c502c2e8d436a",
+			"value": "677a8d778829a2ae4c063b7d",
 			"type": "default"
 		}
 	]
