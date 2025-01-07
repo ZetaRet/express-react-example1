@@ -127,6 +127,62 @@
 			"response": []
 		},
 		{
+			"name": "Set Profile Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"NewName\",\n    \"body_type\": \"female\",\n    \"body_size\": \"huge\",\n    \"type\": \"alien\",\n    \"race\": \"dominion\",\n    \"color1\": {\n        \"r\": 100,\n        \"g\": 100,\n        \"b\": 100\n    },\n    \"color2\": {\n        \"r\": 100,\n        \"g\": 100,\n        \"b\": 100\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{expreUrl}}/api/set_profile_data/",
+					"host": [
+						"{{expreUrl}}"
+					],
+					"path": [
+						"api",
+						"set_profile_data",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Profile Other Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"face\": \"pretty\",\n    \"eyes\": \"black\",\n    \"skin\": \"thin\",\n    \"mood\": \"happy\",\n    \"language\": \"english\",\n    \"religion\": \"cosmos\",\n    \"hairstyle\": \"long\",\n    \"dresscode\": \"office\",\n    \"glasses\": \"computer\",\n    \"hat\": \"winter\",\n    \"textures\": \"clear\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{expreUrl}}/api/set_profile_other_data/",
+					"host": [
+						"{{expreUrl}}"
+					],
+					"path": [
+						"api",
+						"set_profile_other_data",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Login",
 			"request": {
 				"method": "POST",

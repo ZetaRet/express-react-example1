@@ -6,6 +6,8 @@ import { BodySizeEnum, BodyTypeEnum, ColorLimit, NameArray, RaceEnum, TypeEnum }
 import { OtherData } from "../enum/OtherEnum";
 import { IRequest } from "../interfaces/IRequest";
 import DataService from "./DataService";
+import { ProfileAnotherZod, SetProfileOtherZod, SetProfileZod } from "../schemas/ZodSchemas";
+import { SetProfileDTO, SetProfileOtherDTO } from "../schemas/DTO";
 
 export default class APIDataService extends DataService {
 	constructor() {
@@ -152,6 +154,12 @@ export default class APIDataService extends DataService {
 		const o = this;
 		let resultd: any = {};
 		let uid: string = req.body.uid;
+		const zodsafe: any = ProfileAnotherZod.safeParse({ uid });
+		if (!zodsafe.success) {
+			res.send(o.controller.returnError("validation", zodsafe.error.issues));
+			return;
+		}
+
 		resultd.uid = uid;
 		resultd.user = null;
 		resultd.units_origin = null;
@@ -196,10 +204,91 @@ export default class APIDataService extends DataService {
 	}
 
 	set_profile_data(req: Request, res: Response) {
-		res.send({});
+		const o = this;
+		let cookie = (req as IRequest).cookie.session;
+		let uid = (req as IRequest).redisval;
+		let user = (req as IRequest).user;
+		if (!user) {
+			o.controller.returnError({ err: "nonAuthUser" });
+			return;
+		}
+
+		var inputd: SetProfileDTO = {
+			name: req.body.name,
+			body_type: req.body.body_type,
+			body_size: req.body.body_size,
+			type: req.body.type,
+			race: req.body.race,
+			color1: req.body.color1,
+			color2: req.body.color2,
+		};
+		const zodsafe: any = SetProfileZod.safeParse(inputd);
+		if (!zodsafe.success) {
+			res.send(o.controller.returnError("validation", zodsafe.error.issues));
+			return;
+		}
+
+		IndexCFG.mongodb
+			.collection("agents")
+			.updateOne({ _id: new ObjectId(uid) }, { $set: inputd }, function (err: any, result: any) {
+				if (IndexCFG.debug) console.log("#Update Agent", result);
+				res.send({ cookie, uid, inputd, data: result });
+			});
 	}
 
 	set_profile_other_data(req: Request, res: Response) {
-		res.send({});
+		const o = this;
+		let cookie = (req as IRequest).cookie.session;
+		let uid = (req as IRequest).redisval;
+		let user = (req as IRequest).user;
+		if (!user) {
+			o.controller.returnError({ err: "nonAuthUser" });
+			return;
+		}
+
+		var inputd: SetProfileOtherDTO = {
+			face: req.body.face,
+			eyes: req.body.eyes,
+			skin: req.body.skin,
+			mood: req.body.mood,
+			language: req.body.language,
+			religion: req.body.religion,
+			hairstyle: req.body.hairstyle,
+			dresscode: req.body.dresscode,
+			glasses: req.body.glasses,
+			hat: req.body.hat,
+			textures: req.body.textures,
+		};
+		const zodsafe: any = SetProfileOtherZod.safeParse(inputd);
+		if (!zodsafe.success) {
+			res.send(o.controller.returnError("validation", zodsafe.error.issues));
+			return;
+		}
+
+		var count: number = 0;
+		function checkCount() {
+			count--;
+			if (count === 0) res.send({ cookie, uid, inputd });
+		}
+
+		for (var key in inputd) {
+			if ((inputd as any)[key]) {
+				count++;
+				(function (k: string) {
+					if (IndexCFG.debug) console.log("#Begin Update Unit Other:", k, (inputd as any)[k]);
+					let obj: any = { value: (inputd as any)[k] };
+					IndexCFG.mongodb
+						.collection("unit_data")
+						.updateOne(
+							{ unit_id: new ObjectId(uid), key: k },
+							{ $set: obj },
+							function (err: any, result: any) {
+								if (IndexCFG.debug) console.log("#Update Unit Other:", k, result);
+								checkCount();
+							}
+						);
+				})(key);
+			}
+		}
 	}
 }
