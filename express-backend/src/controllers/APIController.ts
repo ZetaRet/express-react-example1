@@ -12,8 +12,21 @@ export default class APIController extends BaseController {
 	constructor() {
 		super();
 		this.service = new APIDataService();
-		this.links = ["login", "logout", "status", "seedAgents"];
+		this.service.controller = this;
+		this.links = [
+			"login",
+			"logout",
+			"status",
+			"seedAgents",
+			"profile_data",
+			"profile_another_data",
+			"set_profile_data",
+			"set_profile_other_data",
+		];
 		this.post["login"] = true;
+		this.post["profile_another_data"] = true;
+		this.post["set_profile_data"] = true;
+		this.post["set_profile_other_data"] = true;
 	}
 
 	async login(req: Request, res: Response) {
@@ -58,5 +71,21 @@ export default class APIController extends BaseController {
 
 	seedAgents(req: Request, res: Response) {
 		return this.service.seedAgents(req, res);
+	}
+
+	profile_data(req: Request, res: Response) {
+		return this.service.profile_data(req, res);
+	}
+
+	profile_another_data(req: Request, res: Response) {
+		return this.service.profile_another_data(req, res);
+	}
+
+	set_profile_data(req: Request, res: Response) {
+		return this.service.set_profile_data(req, res);
+	}
+
+	set_profile_other_data(req: Request, res: Response) {
+		return this.service.set_profile_other_data(req, res);
 	}
 }

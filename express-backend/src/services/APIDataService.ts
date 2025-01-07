@@ -5,9 +5,12 @@ import { RoleEnum } from "../enum/RoleEnum";
 import { BodySizeEnum, BodyTypeEnum, ColorLimit, NameArray, RaceEnum, TypeEnum } from "../enum/BaseEnum";
 import { OtherData } from "../enum/OtherEnum";
 import { IRequest } from "../interfaces/IRequest";
+import DataService from "./DataService";
 
-export default class APIDataService {
-	constructor() {}
+export default class APIDataService extends DataService {
+	constructor() {
+		super();
+	}
 
 	status(req: Request, res: Response) {
 		let result: any = {};
@@ -94,5 +97,109 @@ export default class APIDataService {
 			o.seedAgentsOrigin(insertdox, records.insertedIds);
 			res.send({ data: records.insertedIds });
 		});
+	}
+
+	sendResponse(res: Response, data: any) {
+		res.send(data);
+	}
+
+	profile_data(req: Request, res: Response) {
+		const o = this;
+		let resultd: any = {};
+		resultd.cookie = (req as IRequest).cookie.session;
+		resultd.uid = (req as IRequest).redisval;
+		resultd.user = (req as IRequest).user;
+		if (resultd.user) {
+			resultd.units_origin = null;
+			resultd.unit_data = null;
+			resultd.unit_data_origin = null;
+
+			var count: number = 3;
+			function checkCounter() {
+				count--;
+				if (count === 0) o.sendResponse(res, resultd);
+			}
+
+			IndexCFG.mongodb
+				.collection("unit_data_origin")
+				.find({ unit_id: new ObjectId(resultd.uid) }, async (err: any, result: any) => {
+					var findmany: any[] = await o.controller.findMany(result);
+					resultd.unit_data_origin = findmany;
+					if (IndexCFG.debug) console.log("Unit Data Origin", findmany);
+					checkCounter();
+				});
+			IndexCFG.mongodb
+				.collection("unit_data")
+				.find({ unit_id: new ObjectId(resultd.uid) }, async (err: any, result: any) => {
+					var findmany: any[] = await o.controller.findMany(result);
+					resultd.unit_data = findmany;
+					if (IndexCFG.debug) console.log("#Unit Data", findmany);
+					checkCounter();
+				});
+			IndexCFG.mongodb
+				.collection("units_origin")
+				.findOne({ unit_id: new ObjectId(resultd.uid) }, (err: any, result: any) => {
+					resultd.units_origin = result;
+					if (IndexCFG.debug) console.log("#Units Origin", result);
+					checkCounter();
+				});
+		} else {
+			o.sendResponse(res, { err: "nonAuthUser" });
+		}
+	}
+
+	profile_another_data(req: Request, res: Response) {
+		const o = this;
+		let resultd: any = {};
+		let uid: string = req.body.uid;
+		resultd.uid = uid;
+		resultd.user = null;
+		resultd.units_origin = null;
+		resultd.unit_data = null;
+		resultd.unit_data_origin = null;
+
+		var count: number = 4;
+		function checkCounter() {
+			count--;
+			if (count === 0) o.sendResponse(res, resultd);
+		}
+
+		IndexCFG.mongodb.collection("agents").findOne({ _id: new ObjectId(resultd.uid) }, (err: any, result: any) => {
+			resultd.user = Object.assign({}, result);
+			delete resultd.user.password;
+			if (IndexCFG.debug) console.log("#Agent", result);
+			checkCounter();
+		});
+		IndexCFG.mongodb
+			.collection("unit_data_origin")
+			.find({ unit_id: new ObjectId(resultd.uid) }, async (err: any, result: any) => {
+				var findmany: any[] = await o.controller.findMany(result);
+				resultd.unit_data_origin = findmany;
+				if (IndexCFG.debug) console.log("Unit Data Origin", findmany);
+				checkCounter();
+			});
+		IndexCFG.mongodb
+			.collection("unit_data")
+			.find({ unit_id: new ObjectId(resultd.uid) }, async (err: any, result: any) => {
+				var findmany: any[] = await o.controller.findMany(result);
+				resultd.unit_data = findmany;
+				if (IndexCFG.debug) console.log("#Unit Data", findmany);
+				checkCounter();
+			});
+		IndexCFG.mongodb
+			.collection("units_origin")
+			.findOne({ unit_id: new ObjectId(resultd.uid) }, (err: any, result: any) => {
+				resultd.units_origin = result;
+				if (IndexCFG.debug) console.log("#Units Origin", result);
+				checkCounter();
+			});
+	}
+
+	set_profile_data(req: Request, res: Response) {
+		res.send({});
+	}
+
+	set_profile_other_data(req: Request, res: Response) {
+		res.send({});
 	}
 }

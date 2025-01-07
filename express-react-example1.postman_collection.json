@@ -68,6 +68,65 @@
 			"response": []
 		},
 		{
+			"name": "Profile Data",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{expreUrl}}/api/profile_data/",
+					"host": [
+						"{{expreUrl}}"
+					],
+					"path": [
+						"api",
+						"profile_data",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Another Profile Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": \"{{another_uid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{expreUrl}}/api/profile_another_data/",
+					"host": [
+						"{{expreUrl}}"
+					],
+					"path": [
+						"api",
+						"profile_another_data",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Login",
 			"request": {
 				"method": "POST",
@@ -187,6 +246,11 @@
 		{
 			"key": "uid",
 			"value": "677a8d778829a2ae4c063b7d",
+			"type": "default"
+		},
+		{
+			"key": "another_uid",
+			"value": "677a8d778829a2ae4c063b7e",
 			"type": "default"
 		}
 	]
