@@ -78,3 +78,35 @@ form button:hover {
 .center {
     text-align: center;
 }
+
+.tablediv {
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.tablediv table {
+    border: 1px #333 solid;
+    border-spacing: 1px 3px;
+}
+
+.tablediv .tablehead {
+    background: #eee;
+}
+
+.tablediv .tablehead th {
+    padding: 2px;
+}
+
+.tablediv .tableitem td {
+    padding: 2px;
+}
+
+.tablediv .tableitem:hover {
+    background: #b8f1f1 !important;
+}
+
+.tablediv .tableitem:nth-child(odd) {
+    background: #fafafa;
+}
+
