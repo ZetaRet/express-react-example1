@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link, Outlet, useParams, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, Outlet, useSearchParams } from "react-router-dom";
 import ViewProfile from "./ViewProfile";
 import EditProfile from "./EditProfile";
 import LoginForm from "./LoginForm";
 import LogoutForm from "./LogoutForm";
+import ListProfiles from "./ListProfiles";
 
 const Home = () => {
 	return (
@@ -26,6 +27,9 @@ const Login = () => {
 						<Link to="/edit_profile/">Edit Profile</Link>
 					</li>
 					<li>
+						<Link to="/list_profiles/">List Profiles</Link>
+					</li>
+					<li>
 						<Link to="/logout/">Logout</Link>
 					</li>
 				</ul>
@@ -45,6 +49,16 @@ const ViewProfileWrapper = () => {
 
 const EditProfileWrapper = () => {
 	return <EditProfile />;
+};
+
+const ViewAnotherProfileWrapper = () => {
+	const [searchParams] = useSearchParams();
+	const id = searchParams.get("id");
+	return <ViewProfile propid={id} />;
+};
+
+const ListProfileWrapper = () => {
+	return <ListProfiles />;
 };
 
 export default function App() {
@@ -69,6 +83,8 @@ export default function App() {
 					<Route path="/logout/" element={<LogoutForm />} />
 					<Route path="/profile/" element={<ViewProfileWrapper />} />
 					<Route path="/edit_profile/" element={<EditProfileWrapper />} />
+					<Route path="/list_profiles/" element={<ListProfileWrapper />} />
+					<Route path="/view_profile/" element={<ViewAnotherProfileWrapper />} />
 				</Routes>
 			</Router>
 		</div>

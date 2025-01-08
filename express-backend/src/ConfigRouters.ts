@@ -90,6 +90,8 @@ export default class ConfigRouters {
 		o.pushPage(app, "/logout/");
 		o.pushPage(app, "/profile/");
 		o.pushPage(app, "/edit_profile/");
+		o.pushPage(app, "/list_profiles/");
+		o.pushPage(app, "/view_profile/");
 		this.addController(HomeController, app, "home");
 		this.addController(APIController, app, "api");
 	}

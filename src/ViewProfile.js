@@ -13,10 +13,18 @@ export default class ViewProfile extends ReactFetchComponent {
 
 	componentDidMount() {
 		const o = this;
-		console.log("Mount View Profile");
-		this.fetchAPI("/api/profile_data/", "GET", null, (d) => {
-			o.setState({ fetching: false, data: d });
-		});
+		const id = this.props.propid;
+		console.log("Mount View Profile:", id);
+		if (id) {
+			this.fetchAPI("/api/profile_another_data/", "POST", { uid: id }, (d) => {
+				o.setState({ fetching: false, data: d });
+			});
+		} else {
+			this.fetchAPI("/api/profile_data/", "GET", null, (d) => {
+				o.setState({ fetching: false, data: d });
+			});
+		}
+
 		o.setState({ fetching: true });
 	}
 

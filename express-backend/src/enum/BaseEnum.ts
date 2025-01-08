@@ -14,6 +14,8 @@ export enum BodySizeEnum {
 
 export const NameArray: string[] = [
 	"Chris",
+	"Scott",
+	"Ander",
 	"Sonic",
 	"Blade",
 	"Fem",
