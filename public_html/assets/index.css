@@ -74,3 +74,7 @@ form button:hover {
     color: #fff;
     background-color: rgb(123, 211, 101);;
 }
+
+.center {
+    text-align: center;
+}

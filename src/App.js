@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link, Outlet, useParams, useNavigate } from "react-router-dom";
 import ViewProfile from "./ViewProfile";
 import EditProfile from "./EditProfile";
+import LoginForm from "./LoginForm";
+import LogoutForm from "./LogoutForm";
 
 const Home = () => {
 	return (
@@ -23,8 +25,15 @@ const Login = () => {
 					<li>
 						<Link to="/edit_profile/">Edit Profile</Link>
 					</li>
+					<li>
+						<Link to="/logout/">Logout</Link>
+					</li>
 				</ul>
 			</nav>
+			<br />
+			<div>
+				<LoginForm />
+			</div>
 			<Outlet />
 		</div>
 	);
@@ -53,9 +62,11 @@ export default function App() {
 						</li>
 					</ul>
 				</nav>
+				<br />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/login/" element={<Login />} />
+					<Route path="/logout/" element={<LogoutForm />} />
 					<Route path="/profile/" element={<ViewProfileWrapper />} />
 					<Route path="/edit_profile/" element={<EditProfileWrapper />} />
 				</Routes>

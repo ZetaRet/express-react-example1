@@ -1,6 +1,6 @@
 {
   "name": "express-react-example1",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "watch-prod": "webpack --mode production --watch",
     "watch-dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "start-react": "webpack --mode development",
+    "build-dev": "webpack --mode development",
     "start": "NODE_ENV=rootprod node express-backend/dist/index.js"
   },
   "keywords": [],
