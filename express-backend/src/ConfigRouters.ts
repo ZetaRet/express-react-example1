@@ -59,13 +59,16 @@ export default class ConfigRouters {
 
 	pushPublicRoutes() {
 		IndexCFG.publicRoutes.push("/");
-		IndexCFG.publicRoutes.push("/login/");
-		IndexCFG.publicRoutes.push("/profile/");
 		IndexCFG.publicRoutes.push("/api/home/");
 		IndexCFG.publicRoutes.push("/api/enums/");
 		IndexCFG.publicRoutes.push("/api/login/");
 		IndexCFG.publicRoutes.push("/api/status/");
 		IndexCFG.publicRoutes.push("/api/seedAgents/");
+	}
+
+	pushPage(app: any, url: string) {
+		IndexCFG.publicRoutes.push(url);
+		app.get(url, this.renderIndex);
 	}
 
 	renderEmpty(req: Request, res: Response) {
@@ -83,10 +86,10 @@ export default class ConfigRouters {
 		o.pushPublicRoutes();
 		app.use(o.middleware);
 		app.get("/favicon.ico", o.renderEmpty);
-		app.get("/login/", o.renderIndex);
-		app.get("/logout/", o.renderIndex);
-		app.get("/profile/", o.renderIndex);
-		app.get("/edit_profile/", o.renderIndex);
+		o.pushPage(app, "/login/");
+		o.pushPage(app, "/logout/");
+		o.pushPage(app, "/profile/");
+		o.pushPage(app, "/edit_profile/");
 		this.addController(HomeController, app, "home");
 		this.addController(APIController, app, "api");
 	}

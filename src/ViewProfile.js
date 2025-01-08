@@ -4,7 +4,7 @@ import ReactFetchComponent from "./ReactFetchComponent";
 export default class ViewProfile extends ReactFetchComponent {
 	constructor(props) {
 		super(props);
-		this.state = { data: null };
+		this.state = { fetching: false, data: null };
 	}
 
 	componentWillUnmount() {
@@ -95,7 +95,7 @@ export default class ViewProfile extends ReactFetchComponent {
 
 	getProfileDataHTML(data) {
 		return (
-			<div className="user-origin-view">
+			<div className="user-data-view">
 				<div className="center">User Data:</div>
 				<div className="tablediv">
 					<table>
@@ -114,7 +114,7 @@ export default class ViewProfile extends ReactFetchComponent {
 
 	getProfileDataOriginHTML(data) {
 		return (
-			<div className="user-origin-view">
+			<div className="user-data-origin-view">
 				<div className="center">User Data Origin:</div>
 				<div className="tablediv">
 					<table>

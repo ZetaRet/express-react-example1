@@ -227,6 +227,9 @@ export default class APIDataService extends DataService {
 			res.send(o.controller.returnError("validation", zodsafe.error.issues));
 			return;
 		}
+		for (var k in inputd) {
+			if (!(inputd as any)[k]) delete (inputd as any)[k];
+		}
 
 		IndexCFG.mongodb
 			.collection("agents")
@@ -263,6 +266,9 @@ export default class APIDataService extends DataService {
 		if (!zodsafe.success) {
 			res.send(o.controller.returnError("validation", zodsafe.error.issues));
 			return;
+		}
+		for (var k in inputd) {
+			if (!(inputd as any)[k]) delete (inputd as any)[k];
 		}
 
 		var count: number = 0;

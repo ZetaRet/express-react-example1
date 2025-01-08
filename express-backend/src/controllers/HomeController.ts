@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import IndexCFG from "../IndexCFG";
 import BaseController from "./BaseController";
-import { BodySizeEnum, BodyTypeEnum, RaceEnum, TypeEnum } from "../enum/BaseEnum";
+import { BodySizeEnum, BodyTypeEnum, NameArray, RaceEnum, TypeEnum } from "../enum/BaseEnum";
 import {
 	DressCodeEnum,
 	EyesEnum,
@@ -38,6 +38,7 @@ export default class HomeController extends BaseController {
 	enums(req: Request, res: Response) {
 		let resultd: any = {
 			base: {
+				name: NameArray,
 				body_type: Object.values(BodyTypeEnum),
 				body_size: Object.values(BodySizeEnum),
 				type: Object.values(TypeEnum),
