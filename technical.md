@@ -4,8 +4,6 @@ agents - id, password, role, name, type, race, body_type, body_size, color1, col
 units_origin - id, unit_id, name, type, race, body_type, body_size, color1, color2  
 unit_data - id, unit_id, key, value  
 unit_data_origin - id, unit_id, key, value  
-agent_storage - id, agent_id, unit_id, password  
-tokens - id, unit_id, token  
 
 ## Redis  
 
@@ -42,12 +40,12 @@ textures: spots, areas, various, images, clear
 
 ## Forms
 
-Login: id, password or token (checks units or tokens, create new token)  
-Logout: (clear redis, keep token)  
+Login: id, password (checks units, update session)  
+Logout: (clear redis, keep session)  
 View Profile: id, token, name, type, race, body_type, body_size, color1, color2; unit_data listing by unit_id  
 Edit Profile:  
 - name, type, race, color1, color2;  
 - unit_data listing by unit_id;  
-- add unique key-value data;  
-- view all units by current and other data, including origin; select data to transfer to personal profile;  
+- view all units by current and other data, including origin;  
+- select data to view for typing in personal profile;  
 
